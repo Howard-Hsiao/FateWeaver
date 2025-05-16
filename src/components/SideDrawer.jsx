@@ -1,0 +1,163 @@
+import React, { useState, useEffect } from 'react';
+import { Drawer, Input, Button, Select, Space, Checkbox, Divider, theme } from 'antd';
+import { DEFAULT_COLORS } from '../configs/constants';
+
+const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
+  const [localGroups, setLocalGroups] = useState(groups);
+  const {
+    token: { colorBgContainer, colorText, colorBorderSecondary },
+  } = theme.useToken();
+
+  useEffect(() => {
+    if (open) {
+      setLocalGroups(groups);
+    }
+  }, [open, groups]);
+
+  const addGroup = () => {
+    const newGroup = {
+      fields: ['', ''],
+      color: DEFAULT_COLORS[localGroups.length % DEFAULT_COLORS.length],
+      enabled: true,
+    };
+    setLocalGroups([...localGroups, newGroup]);
+  };
+
+  const addInputToGroup = (groupIndex) => {
+    const updated = [...localGroups];
+    updated[groupIndex].fields.push('');
+    setLocalGroups(updated);
+  };
+
+  const updateField = (groupIndex, fieldIndex, value) => {
+    const updated = [...localGroups];
+    updated[groupIndex].fields[fieldIndex] = value;
+    setLocalGroups(updated);
+  };
+
+  const updateColor = (groupIndex, color) => {
+    const updated = [...localGroups];
+    updated[groupIndex].color = color;
+    setLocalGroups(updated);
+  };
+
+  const toggleGroupEnabled = (groupIndex, checked) => {
+    const updated = [...localGroups];
+    updated[groupIndex].enabled = checked;
+    setLocalGroups(updated);
+  };
+
+  const setAllEnabled = (value) => {
+    const updated = localGroups.map((g) => ({ ...g, enabled: value }));
+    setLocalGroups(updated);
+  };
+
+  const handleConfirm = () => {
+    onGroupsChange(localGroups);
+    onClose();
+  };
+
+  return (
+    <Drawer title="角色群組設定" open={open} onClose={onClose} width={420} zIndex={1600}>
+      <Space style={{ marginBottom: 16 }} wrap>
+        <Button type="default" onClick={() => setAllEnabled(true)}>
+          全部啟用
+        </Button>
+        <Button type="default" onClick={() => setAllEnabled(false)}>
+          全部停用
+        </Button>
+        <Button type="dashed" onClick={addGroup}>
+          新增群組
+        </Button>
+      </Space>
+
+      <Divider />
+
+      {localGroups.map((group, i) => (
+        <div
+          key={i}
+          style={{
+            background: colorBgContainer,
+            border: `1px solid ${colorBorderSecondary}`,
+            padding: 16,
+            marginBottom: 20,
+            borderRadius: 8,
+            boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+            opacity: group.enabled ? 1 : 0.6,
+            transition: 'opacity 0.2s',
+          }}
+        >
+          <Checkbox
+            checked={group.enabled}
+            onChange={(e) => toggleGroupEnabled(i, e.target.checked)}
+            style={{ marginBottom: 12, fontWeight: 500 }}
+          >
+            啟用角色群組 {i + 1}
+          </Checkbox>
+
+          <Space direction="vertical" style={{ width: '100%' }}>
+            {group.fields.map((val, j) => (
+              <Input
+                key={j}
+                value={val}
+                onChange={(e) => updateField(i, j, e.target.value)}
+                placeholder={`角色欄位 ${j + 1}`}
+                disabled={!group.enabled}
+              />
+            ))}
+
+            <Button
+              onClick={() => addInputToGroup(i)}
+              block
+              disabled={!group.enabled}
+              type="dashed"
+              style={{ marginTop: 8 }}
+            >
+              新增角色欄位
+            </Button>
+
+            <Space style={{ marginTop: 12 }}>
+              <Select
+                value={group.color}
+                onChange={(val) => updateColor(i, val)}
+                style={{ width: 120 }}
+                disabled={!group.enabled}
+              >
+                {DEFAULT_COLORS.map((color) => (
+                  <Select.Option key={color} value={color}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <div
+                        style={{
+                          backgroundColor: color,
+                          width: 12,
+                          height: 12,
+                          borderRadius: '50%',
+                          marginRight: 6,
+                        }}
+                      />
+                      {color}
+                    </div>
+                  </Select.Option>
+                ))}
+              </Select>
+
+              <input
+                type="color"
+                value={group.color}
+                onChange={(e) => updateColor(i, e.target.value)}
+                disabled={!group.enabled}
+                style={{ border: 'none', background: 'transparent', cursor: group.enabled ? 'pointer' : 'not-allowed' }}
+              />
+            </Space>
+          </Space>
+        </div>
+      ))}
+
+      <Button type="primary" onClick={handleConfirm} block style={{ marginTop: 24 }}>
+        確認，生成關係圖
+      </Button>
+    </Drawer>
+  );
+};
+
+export default SideDrawer;
