@@ -285,25 +285,45 @@ function App() {
         <Header
           style={{
             background: 'transparent',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
             paddingInline: 24,
+            paddingBlock: 12,
           }}
         >
-          <Space style={{ alignItems: 'center' }}>
-            <div style={iconCircleStyle}>
-              <img src={appIcon} alt="icon" style={{ width: 30, height: 30 }} />
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              rowGap: 12,
+            }}
+          >
+            {/* 左邊：LOGO + Title */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={iconCircleStyle}>
+                <img src={appIcon} alt="icon" style={{ width: 30, height: 30 }} />
+              </div>
+              <Title level={3} style={{ margin: 0, color: isDark ? '#fff' : '#000' }}>
+                {t('因緣線')}
+              </Title>
             </div>
-            <Title level={3} style={{ margin: 0, color: isDark ? '#fff' : '#000' }}>
-              {t('因緣線')}
-            </Title>
-          </Space>
-          <Space>
-            <LanguageSwitcher />
-            <span style={{ color: isDark ? '#aaa' : '#555' }}>{t('暗黑模式')}</span>
-            <Switch checked={isDark} onChange={setIsDark} />
-          </Space>
+
+            {/* 右邊：語言 + 暗黑模式 */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
+                flexWrap: 'wrap',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <LanguageSwitcher />
+              <span style={{ color: isDark ? '#aaa' : '#555' }}>{t('暗黑模式')}</span>
+              <Switch checked={isDark} onChange={setIsDark} />
+            </div>
+          </div>
         </Header>
 
         <Content
@@ -416,7 +436,7 @@ function App() {
                 type="primary"
                 danger
                 shape="circle"
-                icon={<ClearOutlined style={{ fontSize: 24 }}/>}
+                icon={<ClearOutlined style={{ fontSize: 24 }} />}
                 onClick={() => {
                   setGroups(DEFAULT_GROUPTS);
                   setSavedText(t('等待故事'));
