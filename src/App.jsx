@@ -47,7 +47,7 @@ const floatingRightButtonStyle = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  zIndex: 1001,
+  zIndex: 1600,
   cursor: 'pointer',
 };
 
@@ -66,7 +66,7 @@ const floatingLeftButtonStyle = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  zIndex: 1001,
+  zIndex: 1600,
   cursor: 'pointer',
 };
 
@@ -241,7 +241,7 @@ function App() {
   const handleConfirm = () => {
     if (text.trim()) {
       setSavedText(text.trim());
-      setText('common:');
+      setText('');
       setIsEditing(false);
     }
   };
