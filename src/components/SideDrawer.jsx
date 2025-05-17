@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Drawer, Input, Button, Select, Space, Checkbox, Divider, theme } from 'antd';
+import { DeleteOutlined, DeleteTwoTone, PlusOutlined } from '@ant-design/icons';
 import { DEFAULT_COLORS } from '../configs/constants';
 
 const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
@@ -23,9 +24,23 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
     setLocalGroups([...localGroups, newGroup]);
   };
 
+  const removeGroup = (groupIndex) => {
+    if (localGroups.length <= 1) return;
+    const updated = [...localGroups];
+    updated.splice(groupIndex, 1);
+    setLocalGroups(updated);
+  };
+
   const addInputToGroup = (groupIndex) => {
     const updated = [...localGroups];
     updated[groupIndex].fields.push('');
+    setLocalGroups(updated);
+  };
+
+  const removeInputFromGroup = (groupIndex, fieldIndex) => {
+    const updated = [...localGroups];
+    if (updated[groupIndex].fields.length <= 2) return;
+    updated[groupIndex].fields.splice(fieldIndex, 1);
     setLocalGroups(updated);
   };
 
@@ -66,7 +81,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
         <Button type="default" onClick={() => setAllEnabled(false)}>
           全部停用
         </Button>
-        <Button type="dashed" onClick={addGroup}>
+        <Button type="dashed" onClick={addGroup} icon={<PlusOutlined />}>
           新增群組
         </Button>
       </Space>
@@ -77,6 +92,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
         <div
           key={i}
           style={{
+            position: 'relative',
             background: colorBgContainer,
             border: `1px solid ${colorBorderSecondary}`,
             padding: 16,
@@ -87,6 +103,17 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
             transition: 'opacity 0.2s',
           }}
         >
+          {localGroups.length > 1 && (
+            <Button
+              type="text"
+              danger
+              icon={<DeleteTwoTone twoToneColor="#ff4d4f" />}
+              onClick={() => removeGroup(i)}
+              aria-label="刪除群組"
+              style={{ position: 'absolute', top: 8, right: 8 }}
+            />
+          )}
+
           <Checkbox
             checked={group.enabled}
             onChange={(e) => toggleGroupEnabled(i, e.target.checked)}
@@ -97,13 +124,25 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
 
           <Space direction="vertical" style={{ width: '100%' }}>
             {group.fields.map((val, j) => (
-              <Input
-                key={j}
-                value={val}
-                onChange={(e) => updateField(i, j, e.target.value)}
-                placeholder={`角色欄位 ${j + 1}`}
-                disabled={!group.enabled}
-              />
+              <Space key={j} style={{ display: 'flex', alignItems: 'center' }}>
+                <Input
+                  value={val}
+                  onChange={(e) => updateField(i, j, e.target.value)}
+                  placeholder={`角色欄位 ${j + 1}`}
+                  disabled={!group.enabled}
+                  style={{ flex: 1 }}
+                />
+                {(group.fields.length > 2) && (
+                  <Button
+                    type="text"
+                    danger
+                    icon={<DeleteOutlined />}
+                    onClick={() => removeInputFromGroup(i, j)}
+                    disabled={!group.enabled}
+                    aria-label="刪除角色欄位"
+                  />
+                )}
+              </Space>
             ))}
 
             <Button
@@ -111,6 +150,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
               block
               disabled={!group.enabled}
               type="dashed"
+              icon={<PlusOutlined />}
               style={{ marginTop: 8 }}
             >
               新增角色欄位

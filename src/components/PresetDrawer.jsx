@@ -9,11 +9,14 @@ const PresetDrawer = ({ open, onClose, onLoadPreset }) => {
       const fileList = ['紅樓夢_前八十回.json', '紅樓夢_後八十回.json', '下一站幸福.json']; // 改成你所有 json
       const loaded = await Promise.all(
         fileList.map(async (file) => {
-          const res = await fetch(`/presetData/${file}`);
+          const url = `${import.meta.env.BASE_URL}presetData/${encodeURIComponent(file)}`;
+          const res = await fetch(url);
+          if (!res.ok) throw new Error(`Failed to load ${url}`);
           const json = await res.json();
           return { ...json, file };
         })
-      );
+      );      
+      
       setArticles(loaded);
     };
 

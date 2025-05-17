@@ -468,7 +468,9 @@ function App() {
               參考來源
             </Title>
             <Paragraph style={{ textAlign: 'center' }}>
-              本專案受到 Beetroot Design 的啟發
+              本專案受到 Beetroot Design 作品的啟發。
+              <br /><br />
+              我預收錄了幾個故事在左側列表中。為了尊重著作權，預收錄的故事皆來自維基百科的公開資料。希望大家能享受這個網站的樂趣。
             </Paragraph>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <iframe
@@ -477,7 +479,6 @@ function App() {
                 width="404"
                 allowFullScreen
                 loading="lazy"
-                frameBorder="0"
                 allow="clipboard-write"
                 referrerPolicy="strict-origin-when-cross-origin"
                 title="Reference"
