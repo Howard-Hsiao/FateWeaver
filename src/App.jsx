@@ -336,7 +336,7 @@ function App() {
             position: 'relative',
           }}
         >
-          <div style={{ maxWidth: 800, width: '100%', position: 'relative' }}>
+          <div style={{ height: '75vh', maxWidth: 800, width: '100%', position: 'relative' }}>
             {isEditing ? (
               <>
                 <Title level={4}>{t('common:請寫下你的故事')}</Title>
