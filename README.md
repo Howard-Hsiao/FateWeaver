@@ -1,12 +1,34 @@
-# React + Vite
+# 因緣線 Fate Weaver
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Fate Weaver** 是一款基於 React + Ant Design 所打造的實驗性文字視覺化工具。透過設定角色群組並輸入一段文章，你可以自動生成一張「角色關係圖」，看見角色之間在文字中的交集與命運交錯。
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### ✨ 靈感來源
 
-## Expanding the ESLint configuration
+靈感來自於一則[設計實驗](https://www.behance.net/gallery/12000833/Romeo-Juliet)：  
+> 在《羅密歐與茱麗葉》中，"Juliet" 出現 180 次，"Romeo" 出現 308 次。  
+> 最終，我們用 55,440 條紅線讓他們在文本中彼此相遇。  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Fate Weaver 將這個概念拓展成可互動的工具——讓你也能用自己的故事編織命運之線。
+
+---
+
+### 🛠 功能特色
+
+- 📜 **自由輸入文章**（或載入預設段落）
+- 🎭 **自定義角色群組**：每組含 2+ 名角色，系統將追蹤其出現位置
+- 🌈 **色彩標記角色線**：每組群體有對應顏色，可視覺區分
+- 📊 **視覺化命運交錯圖**：自動產生角色之間的連線
+- 🌗 **暗黑模式支援**
+- 🌍 **雙語介面（中 / 英）**
+
+---
+
+### 🧪 適用情境
+- 文學教學與分析
+- 自創小說人物關係圖
+- 視覺化文字探索工具
+
+### 📎 授權與參考
+本專案中預設故事皆取自 Wikipedia 公開資料，以尊重著作權與教育研究使用為前提。設計概念受 Beetroot Design 所啟發。

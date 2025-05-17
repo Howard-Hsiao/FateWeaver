@@ -24,7 +24,7 @@ const LanguageSwitcher = () => {
         onChange={handleChange}
         style={{ width: 100 }}
         options={[
-          { label: '中文', value: 'zh' },
+          { label: '中文', value: 'zh-TW' },
           { label: 'English', value: 'en' },
         ]}
       />

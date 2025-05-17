@@ -1,0 +1,21 @@
+{
+  "intro": {
+    "title": "Fate Weaver · A Storyteller of Intertwined Destinies",
+    "description": "is a visual tool exploring the ties between text and characters. Enter a story, set related characters, and the system will automatically generate a relationship graph—revealing connections, echoes, and entanglements within the narrative.",
+    "inspirationTitle": "Inspiration",
+    "inspiration1": "It was once noted that in Shakespeare’s tragedy 'Romeo and Juliet', the name Juliet appears 180 times, and Romeo 308 times. With 55,440 red lines, their every breath in the text was bound together.",
+    "inspiration2": "Fate Weaver is the natural extension of that idea—transforming fate into visible threads of connection.",
+    "featuresTitle": "Features",
+    "feature1": "Input your own story, or load preset text",
+    "feature2": "Define character groups, each with two or more names",
+    "feature3": "Assign a color to represent each group’s bond",
+    "feature4": "Click 'Weave Fate' to generate a visual character map",
+    "feature5": "Supports dark mode and bilingual interface",
+    "targetTitle": "Ideal For",
+    "target1": "Literary analysis, scriptwriting, educational use",
+    "target2": "Interactive installations, data visualization",
+    "target3": "Story designers exploring character dynamics",
+    "noteTitle": "Notes",
+    "note": "All preset texts are sourced from Wikipedia public content. The tool is inspired by Beetroot Design’s explorations in text interaction."
+  }
+}

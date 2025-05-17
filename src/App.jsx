@@ -19,6 +19,7 @@ import { ClearOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';   // ← 新增
 import './i18n'; // 確保 i18n 被 import 來初始化
 import LanguageSwitcher from './components/LanguageSwitcher';
+import Intro from './components/Intro';
 
 const iconCircleStyle = {
   width: 36,
@@ -75,7 +76,7 @@ const { Title, Paragraph, Text, Link } = Typography;
 const { TextArea } = Input;
 
 function App() {
-  const { t } = useTranslation();   // ← 新增
+  const { t } = useTranslation(['common']);   // ← 新增
 
   const [isDark, setIsDark] = useState(false);
   const [text, setText] = useState('');
@@ -240,7 +241,7 @@ function App() {
   const handleConfirm = () => {
     if (text.trim()) {
       setSavedText(text.trim());
-      setText('');
+      setText('common:');
       setIsEditing(false);
     }
   };
@@ -305,7 +306,7 @@ function App() {
                 <img src={appIcon} alt="icon" style={{ width: 30, height: 30 }} />
               </div>
               <Title level={3} style={{ margin: 0, color: isDark ? '#fff' : '#000' }}>
-                {t('因緣線')}
+                {t('common:因緣線')}
               </Title>
             </div>
 
@@ -320,7 +321,7 @@ function App() {
               }}
             >
               <LanguageSwitcher />
-              <span style={{ color: isDark ? '#aaa' : '#555' }}>{t('暗黑模式')}</span>
+              <span style={{ color: isDark ? '#aaa' : '#555' }}>{t('common:暗黑模式')}</span>
               <Switch checked={isDark} onChange={setIsDark} />
             </div>
           </div>
@@ -338,21 +339,21 @@ function App() {
           <div style={{ maxWidth: 800, width: '100%', position: 'relative' }}>
             {isEditing ? (
               <>
-                <Title level={4}>{t('請寫下你的故事')}</Title>
+                <Title level={4}>{t('common:請寫下你的故事')}</Title>
                 <TextArea
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   autoSize={{ minRows: 8, maxRows: 20 }}
-                  placeholder={t('你的故事，你說我聽...')}
+                  placeholder={t('common:你的故事，你說我聽...')}
                   style={{ width: '100%', borderRadius: 8, marginBottom: 16 }}
                 />
                 <Button type="primary" onClick={handleConfirm}>
-                  {t('確認')}
+                  {t('common:確認')}
                 </Button>
               </>
             ) : (
               <div style={{ position: 'relative' }} ref={containerRef}>
-                <Title level={4}>{t('因緣線結果：')}</Title>
+                <Title level={4}>{t('common:因緣線結果：')}</Title>
                 <Paragraph
                   style={{
                     backgroundColor: isDark ? '#1f1f1f' : '#f5f5f5',
@@ -367,7 +368,7 @@ function App() {
                 >
                   {highlightedElements}
                 </Paragraph>
-                <Button onClick={handleEdit}>{t('編輯')}</Button>
+                <Button onClick={handleEdit}>{t('common:編輯')}</Button>
 
                 {/* SVG 畫布用來畫線 */}
                 <svg
@@ -404,7 +405,7 @@ function App() {
                 style={floatingLeftButtonStyle}
                 onClick={() => setPresetDrawerOpen(true)}
               >
-                {t('載入預收錄文章')}
+                {t('common:載入預收錄文章')}
               </Button>
             )}
 
@@ -415,7 +416,7 @@ function App() {
                 style={floatingRightButtonStyle}
                 onClick={() => setDrawerOpen(true)}
               >
-                {t("設定關聯角色")}
+                {t('common:設定關聯角色')}
               </Button>
             )}
 
@@ -439,8 +440,8 @@ function App() {
                 icon={<ClearOutlined style={{ fontSize: 24 }} />}
                 onClick={() => {
                   setGroups(DEFAULT_GROUPTS);
-                  setSavedText(t('等待故事'));
-                  handleConfirm(t('等待故事'));
+                  setSavedText(t('common:等待故事'));
+                  handleConfirm(t('common:等待故事'));
                 }}
                 style={{
                   position: 'fixed',
@@ -457,6 +458,10 @@ function App() {
         </Content>
 
         {/* 參考來源區塊 */}
+        <div style={{ color: isDark ? '#f0f0f0' : '#141414', padding: 24, maxWidth: 720, margin: '0 auto' }}>
+          <Intro />
+        </div>
+
         <div
           ref={referenceRef}
           style={{
@@ -485,10 +490,10 @@ function App() {
             }}
           >
             <Title level={3} style={{ textAlign: 'center' }}>
-              {t('參考來源')}
+              {t('common:參考來源')}
             </Title>
             <Paragraph style={{ textAlign: 'center' }}>
-              {t('參考內文')}
+              {t('common:參考內文')}
             </Paragraph>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <iframe
@@ -504,7 +509,7 @@ function App() {
               ></iframe>
             </div>
             <Paragraph style={{ marginTop: 24, textAlign: 'center', color: textColor }}>
-              <Text type="secondary">{t('靈感來源於：')}</Text>{' '}
+              <Text type="secondary">{t('common:靈感來源於：')}</Text>{' '}
               <Link
                 href="https://www.behance.net/gallery/12000833/UI-UX-Design"
                 target="_blank"

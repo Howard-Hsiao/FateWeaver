@@ -5,7 +5,7 @@ import { DEFAULT_COLORS } from '../configs/constants';
 import { useTranslation } from 'react-i18next';
 
 const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation(['common']);
   const [localGroups, setLocalGroups] = useState(groups);
   const {
     token: { colorBgContainer, colorText, colorBorderSecondary },
@@ -75,16 +75,16 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
   };
 
   return (
-    <Drawer title={t('角色群組設定')} open={open} onClose={onClose} width={420} zIndex={1600}>
+    <Drawer title={t('common:角色群組設定')} open={open} onClose={onClose} width={420} zIndex={1600}>
       <Space style={{ marginBottom: 16 }} wrap>
         <Button type="default" onClick={() => setAllEnabled(true)}>
-          {t('全部啟用')}
+          {t('common:全部啟用')}
         </Button>
         <Button type="default" onClick={() => setAllEnabled(false)}>
-          {t('全部停用')}
+          {t('common:全部停用')}
         </Button>
         <Button type="dashed" onClick={addGroup} icon={<PlusOutlined />}>
-          {t('新增角色群組')}
+          {t('common:新增角色群組')}
         </Button>
       </Space>
 
@@ -111,7 +111,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
               danger
               icon={<DeleteTwoTone twoToneColor="#ff4d4f" />}
               onClick={() => removeGroup(i)}
-              aria-label={t('刪除角色群組')}
+              aria-label={t('common:刪除角色群組')}
               style={{ position: 'absolute', top: 8, right: 8 }}
             />
           )}
@@ -121,7 +121,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
             onChange={(e) => toggleGroupEnabled(i, e.target.checked)}
             style={{ marginBottom: 12, fontWeight: 500 }}
           >
-            {t('啟用角色群組')} {i + 1}
+            {t('common:啟用角色群組')} {i + 1}
           </Checkbox>
 
           <Space direction="vertical" style={{ width: '100%' }}>
@@ -130,7 +130,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
                 <Input
                   value={val}
                   onChange={(e) => updateField(i, j, e.target.value)}
-                  placeholder={`${t('角色欄位')} ${j + 1}`}
+                  placeholder={`${t('common:角色欄位')} ${j + 1}`}
                   disabled={!group.enabled}
                   style={{ flex: 1 }}
                 />
@@ -141,7 +141,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
                     icon={<DeleteOutlined />}
                     onClick={() => removeInputFromGroup(i, j)}
                     disabled={!group.enabled}
-                    aria-label={t('刪除角色欄位')}
+                    aria-label={t('common:刪除角色欄位')}
                   />
                 )}
               </Space>
@@ -155,7 +155,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
               icon={<PlusOutlined />}
               style={{ marginTop: 8 }}
             >
-              {t('新增角色欄位')}
+              {t('common:新增角色欄位')}
             </Button>
 
             <Space style={{ marginTop: 12 }}>
@@ -196,7 +196,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
       ))}
 
       <Button type="primary" onClick={handleConfirm} block style={{ marginTop: 24 }}>
-        {t('確認，生成關係圖')}
+        {t('common:確認，生成關係圖')}
       </Button>
     </Drawer>
   );
