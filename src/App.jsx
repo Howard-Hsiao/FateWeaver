@@ -288,6 +288,8 @@ function App() {
             background: 'transparent',
             paddingInline: 24,
             paddingBlock: 12,
+            position: 'relative', // 一定要加，否則 zIndex 無效
+            zIndex: 10 
           }}
         >
           <div
