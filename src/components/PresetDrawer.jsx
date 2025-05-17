@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Drawer, Button, List } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 const PresetDrawer = ({ open, onClose, onLoadPreset }) => {
+  const { t, i18n } = useTranslation();
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
@@ -27,7 +29,7 @@ const PresetDrawer = ({ open, onClose, onLoadPreset }) => {
 
   return (
     <Drawer
-      title="預設文章"
+      title={t("預收錄文章")}
       placement="left"
       onClose={onClose}
       open={open}

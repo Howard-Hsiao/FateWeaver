@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Drawer, Input, Button, Select, Space, Checkbox, Divider, theme } from 'antd';
-import { DeleteOutlined, DeleteTwoTone, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, DeleteTwoTone, PlusOutlined, GlobalOutlined } from '@ant-design/icons';
 import { DEFAULT_COLORS } from '../configs/constants';
+import { useTranslation } from 'react-i18next';
 
 const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
+  const { t, i18n } = useTranslation();
   const [localGroups, setLocalGroups] = useState(groups);
   const {
     token: { colorBgContainer, colorText, colorBorderSecondary },
@@ -73,16 +75,16 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
   };
 
   return (
-    <Drawer title="角色群組設定" open={open} onClose={onClose} width={420} zIndex={1600}>
+    <Drawer title={t('角色群組設定')} open={open} onClose={onClose} width={420} zIndex={1600}>
       <Space style={{ marginBottom: 16 }} wrap>
         <Button type="default" onClick={() => setAllEnabled(true)}>
-          全部啟用
+          {t('全部啟用')}
         </Button>
         <Button type="default" onClick={() => setAllEnabled(false)}>
-          全部停用
+          {t('全部停用')}
         </Button>
         <Button type="dashed" onClick={addGroup} icon={<PlusOutlined />}>
-          新增群組
+          {t('新增角色群組')}
         </Button>
       </Space>
 
@@ -109,7 +111,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
               danger
               icon={<DeleteTwoTone twoToneColor="#ff4d4f" />}
               onClick={() => removeGroup(i)}
-              aria-label="刪除群組"
+              aria-label={t('刪除角色群組')}
               style={{ position: 'absolute', top: 8, right: 8 }}
             />
           )}
@@ -119,7 +121,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
             onChange={(e) => toggleGroupEnabled(i, e.target.checked)}
             style={{ marginBottom: 12, fontWeight: 500 }}
           >
-            啟用角色群組 {i + 1}
+            {t('啟用角色群組')} {i + 1}
           </Checkbox>
 
           <Space direction="vertical" style={{ width: '100%' }}>
@@ -128,7 +130,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
                 <Input
                   value={val}
                   onChange={(e) => updateField(i, j, e.target.value)}
-                  placeholder={`角色欄位 ${j + 1}`}
+                  placeholder={`${t('角色欄位')} ${j + 1}`}
                   disabled={!group.enabled}
                   style={{ flex: 1 }}
                 />
@@ -139,7 +141,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
                     icon={<DeleteOutlined />}
                     onClick={() => removeInputFromGroup(i, j)}
                     disabled={!group.enabled}
-                    aria-label="刪除角色欄位"
+                    aria-label={t('刪除角色欄位')}
                   />
                 )}
               </Space>
@@ -153,7 +155,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
               icon={<PlusOutlined />}
               style={{ marginTop: 8 }}
             >
-              新增角色欄位
+              {t('新增角色欄位')}
             </Button>
 
             <Space style={{ marginTop: 12 }}>
@@ -194,7 +196,7 @@ const SideDrawer = ({ open, onClose, groups, onGroupsChange }) => {
       ))}
 
       <Button type="primary" onClick={handleConfirm} block style={{ marginTop: 24 }}>
-        確認，生成關係圖
+        {t('確認，生成關係圖')}
       </Button>
     </Drawer>
   );

@@ -4,7 +4,6 @@ export const DEFAULT_COLORS = [
   '#4CAF50', // 綠色 Green
   '#E91E63', // 粉紅 Pink
   '#009688', // 青綠 Teal
-  '#FFC107', // 琥珀 Amber
   '#9C27B0', // 紫色 Purple
   '#00BCD4', // 淺藍 Cyan
   '#F44336', // 紅色 Red

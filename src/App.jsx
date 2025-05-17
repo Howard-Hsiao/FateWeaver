@@ -15,6 +15,10 @@ import SideDrawer from './components/SideDrawer'; // 請自行準備符合你需
 import PresetDrawer from './components/PresetDrawer';
 import appIcon from './assets/connect-svgrepo-com.svg';
 import { DEFAULT_COLORS } from './configs/constants';
+import { ClearOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';   // ← 新增
+import './i18n'; // 確保 i18n 被 import 來初始化
+import LanguageSwitcher from './components/LanguageSwitcher';
 
 const iconCircleStyle = {
   width: 36,
@@ -71,6 +75,8 @@ const { Title, Paragraph, Text, Link } = Typography;
 const { TextArea } = Input;
 
 function App() {
+  const { t } = useTranslation();   // ← 新增
+
   const [isDark, setIsDark] = useState(false);
   const [text, setText] = useState('');
   const [savedText, setSavedText] = useState('');
@@ -290,11 +296,12 @@ function App() {
               <img src={appIcon} alt="icon" style={{ width: 30, height: 30 }} />
             </div>
             <Title level={3} style={{ margin: 0, color: isDark ? '#fff' : '#000' }}>
-              因緣線
+              {t('因緣線')}
             </Title>
           </Space>
           <Space>
-            <span style={{ color: isDark ? '#aaa' : '#555' }}>暗黑模式</span>
+            <LanguageSwitcher />
+            <span style={{ color: isDark ? '#aaa' : '#555' }}>{t('暗黑模式')}</span>
             <Switch checked={isDark} onChange={setIsDark} />
           </Space>
         </Header>
@@ -311,21 +318,21 @@ function App() {
           <div style={{ maxWidth: 800, width: '100%', position: 'relative' }}>
             {isEditing ? (
               <>
-                <Title level={4}>請寫下你的故事</Title>
+                <Title level={4}>{t('請寫下你的故事')}</Title>
                 <TextArea
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   autoSize={{ minRows: 8, maxRows: 20 }}
-                  placeholder="你的故事，你說我聽..."
+                  placeholder={t('你的故事，你說我聽...')}
                   style={{ width: '100%', borderRadius: 8, marginBottom: 16 }}
                 />
                 <Button type="primary" onClick={handleConfirm}>
-                  確認
+                  {t('確認')}
                 </Button>
               </>
             ) : (
               <div style={{ position: 'relative' }} ref={containerRef}>
-                <Title level={4}>因緣線結果：</Title>
+                <Title level={4}>{t('因緣線結果：')}</Title>
                 <Paragraph
                   style={{
                     backgroundColor: isDark ? '#1f1f1f' : '#f5f5f5',
@@ -340,7 +347,7 @@ function App() {
                 >
                   {highlightedElements}
                 </Paragraph>
-                <Button onClick={handleEdit}>編輯</Button>
+                <Button onClick={handleEdit}>{t('編輯')}</Button>
 
                 {/* SVG 畫布用來畫線 */}
                 <svg
@@ -377,7 +384,7 @@ function App() {
                 style={floatingLeftButtonStyle}
                 onClick={() => setPresetDrawerOpen(true)}
               >
-                {"載入預收錄文章　"}
+                {t('載入預收錄文章')}
               </Button>
             )}
 
@@ -388,7 +395,7 @@ function App() {
                 style={floatingRightButtonStyle}
                 onClick={() => setDrawerOpen(true)}
               >
-                {"　設定關聯角色"}
+                {t("設定關聯角色")}
               </Button>
             )}
 
@@ -408,30 +415,23 @@ function App() {
               <Button
                 type="primary"
                 danger
+                shape="circle"
+                icon={<ClearOutlined style={{ fontSize: 24 }}/>}
                 onClick={() => {
                   setGroups(DEFAULT_GROUPTS);
-                  setSavedText('等待故事...');
-                  handleConfirm('等待故事...');
+                  setSavedText(t('等待故事'));
+                  handleConfirm(t('等待故事'));
                 }}
                 style={{
                   position: 'fixed',
                   right: 24,
                   bottom: 24,
                   zIndex: 2000,
-                  borderRadius: '50%',
                   width: 48,
                   height: 48,
                   padding: 0,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  fontWeight: 'bold',
-                  fontSize: '18px',
                 }}
-                title="清空所有"
-              >
-                清
-              </Button>
+              />
             </div>
           </div>
         </Content>
@@ -465,12 +465,10 @@ function App() {
             }}
           >
             <Title level={3} style={{ textAlign: 'center' }}>
-              參考來源
+              {t('參考來源')}
             </Title>
             <Paragraph style={{ textAlign: 'center' }}>
-              本專案受到 Beetroot Design 作品的啟發。
-              <br /><br />
-              我預收錄了幾個故事在左側列表中。為了尊重著作權，預收錄的故事皆來自維基百科的公開資料。希望大家能享受這個網站的樂趣。
+              {t('參考內文')}
             </Paragraph>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <iframe
@@ -486,13 +484,13 @@ function App() {
               ></iframe>
             </div>
             <Paragraph style={{ marginTop: 24, textAlign: 'center', color: textColor }}>
-              <Text type="secondary">原始設計來自：</Text>{' '}
+              <Text type="secondary">{t('靈感來源於：')}</Text>{' '}
               <Link
                 href="https://www.behance.net/gallery/12000833/UI-UX-Design"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Behance 專案連結
+                Behance
               </Link>
             </Paragraph>
           </Card>
